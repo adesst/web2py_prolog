@@ -1,0 +1,81 @@
+timestamp: 2012-04-20T23:39:25.861462
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2012-04-20T23:39:25.961643
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-04-20T23:39:26.017857
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-04-20T23:39:26.152536
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group(id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2012-04-20T23:39:26.216464
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-04-20T23:39:26.309990
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user(id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2012-04-20T23:39:26.377141
+CREATE TABLE item(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(512),
+    code CHAR(512),
+    physic CHAR(512)
+);
+success!
+timestamp: 2012-04-20T23:39:26.446314
+CREATE TABLE purchase_request(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tr_date TIMESTAMP,
+    requested_by CHAR(512),
+    remarks TEXT,
+    created_date TIMESTAMP,
+    edited_date TIMESTAMP
+);
+success!
+timestamp: 2012-04-20T23:39:26.547442
+CREATE TABLE purchase_request_dtl(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    purchase_request_id INTEGER REFERENCES purchase_request(id) ON DELETE CASCADE,
+    item_id INTEGER REFERENCES item(id) ON DELETE CASCADE,
+    qty INTEGER
+);
+success!

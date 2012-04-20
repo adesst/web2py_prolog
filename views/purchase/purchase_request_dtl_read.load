@@ -1,0 +1,22 @@
+<table>
+    {{=TR(TH(T('No')),
+            TH(T('Item')),
+            TH(T('Qty')),
+            TH(T('Action')),
+       ) }}
+
+    {{for index,row in enumerate(records): }}
+        {{=TR(TD(index+1),
+                TD('%s -- %s' %(row.purchase_request_dtl.item_id,row.item.name)),
+                TD(row.purchase_request_dtl.qty),
+                TD(
+                    A('Update', 
+                        _href=URL('purchase_request_dtl_update_ajax.load', 
+                            vars=dict(id=row.purchase_request_dtl.id, 
+                                        purchase_request_id=row.purchase_request_dtl.purchase_request_id)
+                        )
+                        ,  ),
+                  ),
+             ) }}
+    {{pass }}
+</table>

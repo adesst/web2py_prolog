@@ -1,0 +1,4 @@
+{{ extend 'layout.html' }}
+
+{{=LOAD('purchase','purchase_request_read.load', vars=dict(purchase_request_id=purchase_request_id), ajax=True) }}
+{{=LOAD('purchase','purchase_request_dtl_create_ajax.load', vars=dict(purchase_request_id=purchase_request_id), ajax=True, ajax_trap=True) }}
