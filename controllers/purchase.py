@@ -21,7 +21,7 @@ def purchase_request_create():
     if form.process().accepted:
         response.flash = T('Record added')
         redirect(URL('purchase_request_dtl_create',vars=dict(purchase_request_id=form.vars.id)))
-    return form
+    return dict(form=form)
 
 def purchase_request_update():
     try:
@@ -52,16 +52,17 @@ def purchase_request_dtl_create_ajax():
     if not purchase_request_id:
         response.flash = T('Error: Purchase request id is NULL')
         redirect(URL('purchase_request_read'))
+    
+    form = SQLFORM(db.purchase_request_dtl)
+    form.vars.purchase_request_id = purchase_request_id
+    if form.process().accepted:
+        response.flash = T('Record added')
     records = db(db.purchase_request_dtl.purchase_request_id == purchase_request_id).select(
                     db.purchase_request_dtl.ALL,
                     db.item.name,
                     left=db.item.on(db.item.id == db.purchase_request_dtl.item_id),
                     orderby=db.purchase_request_dtl.id
               )
-    form = SQLFORM(db.purchase_request_dtl)
-    form.vars.purchase_request_id = purchase_request_id
-    if form.process().accepted:
-        response.flash = T('Record added')
     return dict(form=form, purchase_request_id=purchase_request_id,records=records)
 
 def purchase_request_dtl_read():

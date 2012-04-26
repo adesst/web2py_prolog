@@ -8,6 +8,8 @@
 ## - download is for downloading files uploaded in the db (does streaming)
 ## - call exposes all registered services (none by default)
 #########################################################################
+def untuk_test():
+    return 'Untuk Test'
 
 def index():
     """
@@ -68,4 +70,3 @@ def data():
       LOAD('default','data.load',args='tables',ajax=True,user_signature=True)
     """
     return dict(form=crud())
-

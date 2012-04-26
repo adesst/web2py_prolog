@@ -7,7 +7,7 @@ except:
 pass
 }}
 <table>
-    {{=TR(misc.html_custom_form('tr_date',form)) }}
-    {{=TR(misc.html_custom_form('requested_by',form)) }}
-    {{=TR(misc.html_custom_form('remarks',form)) }}
+    {{=TR(misc.html_custom_form('tr_date',form, view=True)) }}
+    {{=TR(misc.html_custom_form('requested_by',form, view=True)) }}
+    {{=TR(misc.html_custom_form('remarks', form, view=True)) }}
 </table>
